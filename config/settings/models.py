@@ -11,13 +11,14 @@ class SiteSettings(models.Model):
         return self.setting_name
     
 
-class NavbarObtion(models.Model):
+class NavbarOption(models.Model):
     name = models.CharField(max_length=50, verbose_name='نام')
-    link = models.URLField('آدرس')
+    link = models.CharField('آدرس')
+    order = models.PositiveIntegerField(default=0) 
 
     class Meta:
         verbose_name = "گزینه نوبار"
         verbose_name_plural = "گزینه‌های نوبار"
-
+        ordering = ['order']
     def __str__(self):
         return self.name

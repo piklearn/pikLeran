@@ -12,6 +12,7 @@
         integrity="sha384-dpuaG1suU0eT09tx5plTaGMLBsfDLzUCCUXOY2j/LSvXYuG6Bqs43ALlhIqAJVRb"
         crossorigin="anonymous"
       />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
       <link rel="stylesheet" href="style.css" />
     </head>
     <title>پیک لرن | {% block title %} {% endblock title %}</title>
@@ -19,7 +20,7 @@
   <body>
     {# header #}
     <div
-      class="{% if not carousel_courses %} sticky-top {% else %} position-relative {% endif %}p-2 shadow header"
+      class="{% if not carousel_courses %} sticky-top {% else %} position-relative {% endif %}p-2 shadow header z-3"
       style="--bs-bg-opacity: 0.95;
         {% if carousel_courses %}
             min-height: 80vh;                
@@ -29,7 +30,7 @@
       {% if carousel_courses %}
 
       <img
-        src="{% static 'images//CodeTyping.png' %}"
+        src="{% static 'img//CodeTyping.png' %}"
         class="z-0 position-absolute"
         alt=""
       />
@@ -38,8 +39,29 @@
       <div class="z-1">
         <nav class="navbar navbar-expand-lg container">
           <div class="container-fluid">
-            ...
-            <div class="d-flex">
+            <a class="navbar-brand" href="/">پیک لرن</a>            
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarColor02"
+              aria-controls="navbarColor02"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor02">
+              <ul class="navbar-nav mb-2 mb-lg-0 mx-auto pe-0">
+                {% for option in navbar_options %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{option.link}}">{{option.name}}</a>
+                  </li>
+                {% endfor %}
+                
+              </ul>
+            </div>
+            <div>
               {% if user.is_authenticated %}
               <div class="btn-group">
                 <button
@@ -80,6 +102,9 @@
                   <li>
                     <a class="dropdown-item" href="">پروفایل</a>
                     <a class="dropdown-item" href="{% url "accounts:password_change" %}">تغییر رمز</a>
+                    {% if user.is_staff and user.is_active %}
+                      <a class="dropdown-item" href="{%url 'admin:index'%}">پنل ادمین</a>
+                    {% endif %}
                   </li>
                 </ul>
               </div>
@@ -87,44 +112,14 @@
                   <a class="btn btn-warning" href="{% url "accounts:login" %}">وارد شوید</a>
               {% endif %}
             </div>
-            ...
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarColor02"
-              aria-controls="navbarColor02"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor02">
-              <ul class="navbar-nav mb-2 mb-lg-0 mx-auto">
-                <a class="nav-link" href="#">درباره ما</a>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">ویژگی ها</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">دوره ها</a>
-                </li>
-                <li class="nav-item"></li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/"
-                    >صفحه اصلی</a
-                  >
-                </li>
-              </ul>
-            </div>
-            <a class="navbar-brand" href="/">پیک لرن</a>
           </div>
         </nav>
 
         {% if carousel_courses %}
         <div class="d-flex justify-content-center align-items-center">
           <div class="col-12 search-box">
-            <button class="btn btn-success">بگرد</button
-            ><input type="text" placeholder="...جستجو کنید" />
+            <input type="text" name="searchBox" class="searchBox" placeholder="جستجو کنید..."  />
+            <button class="btn btn-success">بگرد</button>
           </div>
         </div>
 
@@ -133,7 +128,7 @@
     </div>
     {# header #}
     {% comment %} <div class="content border border-1 shadow"> {% endcomment %}
-      <div class="container my-3 p-2 bg-light col-md-12 col-xl-9 border border-1 shadow rounded">
+      <div class="container my-3 p-2 bg-light col-md-12 col-xl-11 border border-1 shadow rounded">
         {% block main %} {% endblock main %}
       </div>
       {% comment %} <div class="bg-light col-xl-3 d-md-none d-xl-block">
@@ -274,5 +269,6 @@
       integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
       crossorigin="anonymous"
     ></script>
+    {% block script %} {% endblock script %}
   </body>
 </html>

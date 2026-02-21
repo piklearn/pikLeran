@@ -4,24 +4,31 @@
 }
 
 
-*{
-    font-family: 'vasir', sans-serif;
+* {
+    direction: rtl !important;
+    font-family: 'vasir', sans-serif !important;
 }
-body{
+
+body {
     background-color: #eee !important;
 }
-div.header{
-background: linear-gradient(90deg, rgba(45,45,52,1) 0%, rgba(9,9,121,1) 35%, rgba(27,94,148,1) 85%, rgba(43,146,167,1) 100%);
+
+div.header {
+    background: linear-gradient(90deg, rgba(45, 45, 52, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(27, 94, 148, 1) 85%, rgba(43, 146, 167, 1) 100%);
 }
-div.shadow > img{
+
+div.shadow>img {
     left: 50%;
     transform: translate(-50%);
-    width: fit-content;    
+    width: fit-content;
     height: 80vh;
 }
-.nav-link , .navbar-brand{
+
+.nav-link,
+.navbar-brand {
     color: white !important;
 }
+
 .search-box {
     margin-top: 120px;
     max-width: 60%;
@@ -30,11 +37,11 @@ div.shadow > img{
     backdrop-filter: blur(4px);
     padding: 10px;
     border-radius: 10px;
-    display: flex; 
+    display: flex;
     align-items: center;
 }
 
-.search-box > input {
+.search-box>input {
     outline: 0;
     border: 0;
     height: 42px !important;
@@ -44,30 +51,45 @@ div.shadow > img{
     border-left: 0;
     border-radius: 0px 15px 15px 0px;
     padding: .5rem;
-    text-align: end;
     color: white;
 }
 
-.search-box > .btn {
+.search-box>.btn {
     outline: 0;
     padding: .5rem !important;
     height: auto !important;
-    flex-shrink: 0; 
+    flex-shrink: 0;
     border: 1px solid #198754 !important;
     border-right: 0 !important;
     border-radius: 15px 0px 0px 15px !important;
 }
 
-.carousel-caption{
+.carousel-caption {
     padding-bottom: 20px !important;
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    background: rgb(129,119,119) !important;
-    background: linear-gradient(0deg, rgba(129,119,119,1) 0%, rgba(86,86,86,1) 70%, rgba(59,59,59,1) 100%) !important; 
+    background: rgb(129, 119, 119) !important;
+    background: linear-gradient(0deg, rgba(129, 119, 119, 1) 0%, rgba(86, 86, 86, 1) 70%, rgba(59, 59, 59, 1) 100%) !important;
 }
 
-.footer{
-    background: linear-gradient(90deg, rgba(45,45,52,1) 0%, rgba(9,9,121,1) 35%, rgba(27,94,148,1) 85%, rgba(43,146,167,1) 100%);
+.footer {
+    background: linear-gradient(90deg, rgba(45, 45, 52, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(27, 94, 148, 1) 85%, rgba(43, 146, 167, 1) 100%);
     direction: rtl;
-}   
+}
+
+.searchBox::placeholder {
+    color: white
+}
+
+.line-clamp-anim {
+    max-height: 7.5em;
+    /* حدود 5 خط */
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.line-clamp-anim.expanded {
+    max-height: fit-content;
+    /* کل متن */
+}

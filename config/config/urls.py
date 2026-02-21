@@ -19,12 +19,16 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from pages import views as page_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('/', include('main.urls'), name='main'),
     path('', include('main.urls'), name='main'),
     path('courses/', include(('courses.urls', 'courses'), namespace='courses'),),
     path('accounts/', include(('users.urls', 'accounts'), namespace='accounts'),),
+
+    path('<slug:slug>/', page_views.page_detail, name='page_detail'),
 
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

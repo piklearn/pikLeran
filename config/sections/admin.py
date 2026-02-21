@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Section, SectionItem
+
 class SectionItemInline(admin.TabularInline):
     model = SectionItem
     extra = 1

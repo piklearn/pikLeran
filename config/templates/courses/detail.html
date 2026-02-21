@@ -4,51 +4,126 @@
 {% block title %}{{ object.title }}{% endblock title %}
 
 {% block main %}
-<div class="container mt-5">
-  <div class="text-center mb-4">
-    <img src="{{ object.thumbnail.url }}" alt="{{ object.title }}" class="rounded-3 img-fluid" style="max-width: 700px; height: auto;">
-    <h2 class="alert alert-info mt-3">{{ object.title }}</h2>
-    <p class="text-muted alert alert-light text-start">{{ object.description }}</p>
-  </div>
+<div class="my-4">
+    <div class="row">
+        <!-- محتوای اصلی (راست) -->
+        <div class="col-xl-8 col-lg-8">
+            <!-- تصویر + توضیحات + ویدیوها -->
+            <div class="card shadow-sm mb-4">
+                <img src="{{ object.thumbnail.url }}" alt="{{ object.title }}" class="rounded-3 img-fluid mb-4"
+                    style="max-width: 700px; height: auto;">
+                <div class="card-body">
 
-  <div class="row justify-content-center mb-4 text-center">
-    <div class="col-lg-5 col-md-6 mb-3">
-      <div class="alert alert-info">
-        <strong>مربی:</strong> {{ object.instructor }}
-      </div>
-    </div>
-    <div class="col-lg-5 col-md-6 mb-3">
-      <div class="alert alert-warning">
-        <strong>قیمت:</strong>
-        {% if object.price == 0 %}
-        <span>رایگان</span>
-        {% else %}
-        {{ object.price }} تومان
-        {% endif %}
-      </div>
-    </div>
-    <div class="col-lg-5 col-md-6 mb-3">
-      <div class="alert alert-danger">
-        <strong>مدت زمان:</strong> {{ object.duration }}
-      </div>
-    </div>
-    <div class="col-lg-5 col-md-6 mb-3">
-      <div class="alert alert-success">
-        <strong>ایجاد شده در:</strong> {{ object.created_date|date:"F d, Y" }}
-      </div>
-    </div>
-  </div>
+                    <h5 class="mb-3">
+                        <i class="bi bi-card-text me-2 text-primary"></i>
+                        توضیحات دوره
+                    </h5>
 
-  <h2 class="mt-5 text-start">فیلم ها</h2>
-  <div class="list-group">
-    {% for video in videos %}
-    <div class="list-group-item mb-3">
-      <h5>{{ video.title }}</h5>
-      <p class="text-muted">{{ video.description }}</p>
-      <p><strong>مدت زمان:</strong> {{ video.duration }}</p>
-      <a href="{{ video.url }}" class="btn btn-primary" target="_blank">مشاهده ویدیو</a>
+                    <div class="position-relative">
+                        <p id="courseDesc" class="text-muted line-clamp-anim">
+                            {{ object.description|linebreaksbr }}
+                        </p>
+
+                        <button id="toggleBtn" class="btn btn-outline-primary btn-sm mt-1" onclick="toggleDesc()">
+                            نمایش بیشتر
+                        </button>
+
+
+                        <h2 class="mt-5 text-start">فیلم ها</h2>
+                        <div class="list-group">
+                            {% for video in videos %}
+                            <div class="list-group-item mb-3">
+                                <h5>{{ video.title }}</h5>
+                                <p class="text-muted">{{ video.description }}</p>
+                                <p><strong>مدت زمان:</strong> {{ video.duration }}</p>
+                                <a href="{{ video.url }}" class="btn btn-primary" target="_blank">مشاهده ویدیو</a>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- سایدبار (چپ) -->
+        <div class="col-xl-4 col-lg-4 z-1">
+            <div class="card shadow-sm sticky-top" style="top:90px">
+                <div class="card-body">
+
+                    <h5 class="card-title text-center mb-3">
+                        {{ object.title }}
+                    </h5>
+
+                    <!-- قیمت -->
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <i class="bi bi-tag-fill text-success me-2"></i>
+                        <h4 class="mb-0 text-success">
+                            {% if object.price == 0 %}
+                            رایگان
+                            {% else %}
+                            {{ object.price }} تومان
+                            {% endif %}
+                        </h4>
+                    </div>
+
+                    <a href="#" class="btn btn-primary w-100 mb-3">
+                        <i class="bi bi-cart-plus me-1"></i>
+                        ثبت‌نام در دوره
+                    </a>
+
+                    <hr>
+
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-person-fill me-2 text-secondary"></i>
+                            <strong class="me-1">مدرس:</strong> {{ object.instructor }}
+                        </li>
+
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-clock-fill me-2 text-secondary"></i>
+                            <strong class="me-1">مدت:</strong> {{ object.duration }}
+                        </li>
+
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-calendar-event-fill me-2 text-secondary"></i>
+                            <strong class="me-1">تاریخ:</strong>
+                            {{ object.created_date|date:"Y/m/d" }}
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
-    {% endfor %}
-  </div>
 </div>
-{% endblock %}
+
+<div class="container mt-5">
+
+</div>
+</div>
+{% endblock main %}
+
+{% block script %}
+<script>
+    function toggleDesc() {
+        const desc = document.getElementById('courseDesc');
+        const btn = document.getElementById('toggleBtn');
+
+        desc.classList.toggle('expanded');
+
+        if (desc.classList.contains('expanded')) {
+            btn.innerText = 'نمایش کمتر';
+        } else {
+            btn.innerText = 'نمایش بیشتر';
+        }
+    }
+</script>
+
+
+
+
+{% endblock script %}
