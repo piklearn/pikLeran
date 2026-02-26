@@ -4,86 +4,236 @@
 {% block title %}صفحه اصلی{% endblock title %}
 
 {% block main %}
-{# ===== Carousel Section ===== #}
-<div id="carouselCourse" class="carousel slide container py-3" data-bs-ride="carousel">
-    <div class="carousel-inner rounded-4">
-        {% for course in carousel_courses %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %} position-relative">
-            <a href="{{ course.get_absolute_url }}" target="_blank" rel="noopener noreferrer">
-                <img height="455px" src="{{ course.thumbnail.url }}" class="d-block w-100" alt="{{ course.title }}" />
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>{{ course.title }}</h5>
-                </div>
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselCourse" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselCourse" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
 
-{# ===== Hero Section ===== #}
-<section class="container mt-5">
-    <div class="row align-items-center">
-        <div class="col-md-6">
-            <img src="{% static 'assets/Muslim graduation-cuate.png' %}" alt="muslem" class="img-fluid" />
-        </div>
-        <div class="col-md-6">
-            <h2 class="display-5">
-                Lorem ipsum <b class="text-warning">dolor</b> sit amet consectetur adipisicing elit.
-            </h2>
-            <p class="text-muted">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae sit et doloribus necessitatibus in
-                asperiores possimus nobis perferendis sed magni eveniet vel deserunt, iusto cupiditate, voluptas facere,
-                veniam aspernatur autem.
-            </p>
-            <div class="text-center text-md-start">
-                <button class="btn btn-warning">Get started</button>
-            </div>
-        </div>
+<!-- ================= Courses Section ================= -->
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="section-title mb-5 fw-bold">دوره‌های محبوب</h2>
+      <a href="#" class="btn btn-dark">مشاهده همه</a>
     </div>
+
+    <div class="row g-4">
+      {% for course in carousel_courses %}
+      <div class="col-lg-3 col-md-6">
+        <div class="card course-card h-100 p-3">
+          <a href="{{ course.get_absolute_url }}" class="text-decoration-none text-dark">
+            <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}" class="w-100 mb-3 course-img">
+            <h6 class="fw-bold">{{ course.title }}</h6>
+            <div class="d-flex align-items-center justify-content-between mb-2 small">
+              <div class="text-warning fw-semibold">
+                ⭐ 4.8
+              </div>
+              <div class="text-muted">
+                👥 1200 دانشجو
+              </div>
+            </div>
+
+            <div class="text-muted small mb-2">
+              مدرس: {{ course.instructor }}
+            </div>
+
+            <div class="text-muted small mb-3">
+              مدت زمان: {{ course.duration }}
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <span class="price">
+                    {% if course.price == 0 %}
+                            رایگان
+                            {% else %}
+                            {{ course.price|floatformat }} تومان
+                            {% endif %}
+              </div>
+              <span class="badge bg-info rounded-pill px-3 py-2">
+                شروع
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+  </div>
 </section>
 
-{# ===== Features Section ===== #}
-<section class="py-4" style="background-color: #f9f9f9">
-    <div class="container">
-        <h2 class="display-4 text-center mb-4">Features</h2>
-        <p class="text-muted text-center mb-5">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem recusandae alias quia, accusantium accusamus
-            aspernatur itaque possimus, enim dolorum consectetur deserunt quisquam neque delectus placeat ipsum quam
-            mollitia provident voluptatem?
+<!-- ================= Hero Section ================= -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      
+      <div class="col-md-6">
+        <h1 class="fw-bold mb-3">
+          یادگیری را <span class="text-info">حرفه‌ای</span> شروع کن
+        </h1>
+        <p class="text-muted mb-4">
+          با دوره‌های کاربردی و پروژه‌محور مهارت‌هات رو ارتقا بده و سریع وارد
+          بازار کار شو.
         </p>
-        <div class="row g-4">
-            {% comment %} Repeat for each feature card {% endcomment %}
-            <div class="col-xl-4 col-md-6">
-                <div class="card text-center border-0 shadow">
-                    <svg class="mx-auto mt-3 text-warning" xmlns="http://www.w3.org/2000/svg" width="60" height="60"
-                        fill="currentColor" class="bi bi-battery-charging" viewBox="0 0 16 16">
-                        <path
-                            d="M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z" />
-                        <path
-                            d="M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2" />
-                        <path
-                            d="M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
-                        <path
-                            d="M12 10h-1.783l1.542-1.639q.146-.156.241-.34zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646M16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8" />
-                    </svg>
-                    <h3 class="mt-3">Powerful</h3>
-                    <div class="card-body pt-3">
-                        <p class="card-text text-muted">With supporting text below as a natural lead-in to additional
-                            content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            {# ... repeat other feature cards similarly ... #}
-        </div>
+        <a href="#" class="btn btn-info px-4 py-2"> شروع یادگیری </a>
+      </div>
+      <div class="col-md-6 mb-4 mb-md-0">
+        <img src="/static/assets/Muslim%20graduation-cuate.png" class="img-fluid" alt="Hero">
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- Articles Section -->
+<section>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="section-title mb-5 fw-bold">جدیدترین مقاله ها</h2>
+  <a href="#" class="btn btn-dark">مشاهده همه</a>
+</div>
+<div class="row g-4">
+
+  <!-- Article 1 -->
+  <div class="col-lg-3 col-md-6">
+
+    <div class="card article-card h-100 p-3 bg-white">
+      <a href="#" class="text-decoration-none text-dark">
+        <img src="https://thumbs.dreamstime.com/z/dumbbell-rack-close-up-gym-sport-150444617.jpg?ct=jpeg" class="w-100 mb-3 article-img">
+
+        <div class="d-flex justify-content-between small mb-2">
+          <div class="text-muted">📅 ۱۰ خرداد ۱۴۰۵</div>
+          <div class="text-success">الگوریتم</div>
+        </div>
+
+        <h6 class="fw-bold">تحلیل الگوریتم Randomized SAT</h6>
+
+        <div class="text-muted small mb-3">
+          بررسی کامل الگوریتم‌های تصادفی برای حل مسائل NP-Complete و تحلیل احتمال موفقیت آن‌ها.
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="text-muted small">⏱ ۱۲ دقیقه</div>
+          <span class="badge bg-info rounded-pill px-3 py-2">مطالعه</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Article 2 -->
+  <div class="col-lg-3 col-md-6">
+    <div class="card article-card h-100 p-3 bg-white">
+      <a href="#" class="text-decoration-none text-dark">
+        <img src="https://thumbs.dreamstime.com/z/adventure-sport-extreme-mountain-bike-athlete-man-riding-outdoors-lifestyle-trail-30470085.jpg?ct=jpeg" class="w-100 mb-3 article-img">
+
+        <div class="d-flex justify-content-between small mb-2">
+          <div class="text-muted">📅 ۲۵ اردیبهشت ۱۴۰۵</div>
+          <div class="text-primary">سیستم‌عامل</div>
+        </div>
+
+        <h6 class="fw-bold">قفل Per User در سیستم‌های همزمان</h6>
+
+        <div class="text-muted small mb-3">
+          پیاده‌سازی قفل سطح کاربر در برنامه‌های چندنخی و جلوگیری از race condition.
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="text-muted small">⏱ ۸ دقیقه</div>
+          <span class="badge bg-info rounded-pill px-3 py-2">مطالعه</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Article 3 -->
+  <div class="col-lg-3 col-md-6">
+    <div class="card article-card h-100 p-3 bg-white">
+      <a href="#" class="text-decoration-none text-dark">
+        <img src="https://thumbs.dreamstime.com/z/indoor-bycicle-cycling-gym-16587500.jpg?ct=jpeg" class="w-100 mb-3 article-img">
+
+        <div class="d-flex justify-content-between small mb-2">
+          <div class="text-muted">📅 ۵ خرداد ۱۴۰۵</div>
+          <div class="text-danger">Backend</div>
+        </div>
+
+        <h6 class="fw-bold">مقایسه REST و GraphQL</h6>
+
+        <div class="text-muted small mb-3">
+          بررسی معماری REST در مقابل GraphQL و انتخاب مناسب برای پروژه‌های مقیاس‌پذیر.
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="text-muted small">⏱ ۱۵ دقیقه</div>
+          <span class="badge bg-info rounded-pill px-3 py-2">مطالعه</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Article 4 -->
+  <div class="col-lg-3 col-md-6">
+    <div class="card article-card h-100 p-3 bg-white">
+      <a href="#" class="text-decoration-none text-dark">
+        <img src="https://thumbs.dreamstime.com/z/bmx-biker-27951084.jpg?ct=jpeg" class="w-100 mb-3 article-img">
+
+        <div class="d-flex justify-content-between small mb-2">
+          <div class="text-muted">📅 ۱۸ خرداد ۱۴۰۵</div>
+          <div class="text-warning">کامپایلر</div>
+        </div>
+
+        <h6 class="fw-bold">مراحل ساخت یک کامپایلر ساده</h6>
+
+        <div class="text-muted small mb-3">
+          از Lexer و Parser تا تولید کد نهایی؛ مسیر کامل ساخت یک کامپایلر کوچک.
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="text-muted small">⏱ ۲۰ دقیقه</div>
+          <span class="badge bg-info rounded-pill px-3 py-2">مطالعه</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ================= Features Section ================= -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="section-title mb-5 fw-bold">چرا ما؟</h2>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card feature-card text-center p-4 border-0 shadow-sm">
+          <h5 class="fw-bold mt-3">آموزش پروژه محور</h5>
+          <p class="text-muted small">
+            یادگیری واقعی با انجام پروژه‌های کاربردی
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card feature-card text-center p-4 border-0 shadow-sm">
+          <h5 class="fw-bold mt-3">پشتیبانی دائمی</h5>
+          <p class="text-muted small">
+            در طول مسیر تنها نیستی، همیشه کنارت هستیم
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card feature-card text-center p-4 border-0 shadow-sm">
+          <h5 class="fw-bold mt-3">دسترسی همیشگی</h5>
+          <p class="text-muted small">هر زمان و هر جا به دوره‌ها دسترسی داری</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 {% endblock main %}

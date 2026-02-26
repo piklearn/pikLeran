@@ -62,7 +62,7 @@
                             {% if object.price == 0 %}
                             رایگان
                             {% else %}
-                            {{ object.price }} تومان
+                            {{ object.price|floatformat }} تومان
                             {% endif %}
                         </h4>
                     </div>
