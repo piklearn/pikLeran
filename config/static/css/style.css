@@ -29,12 +29,46 @@ div.shadow>img {
     color: white !important;
 }
 
+.navbar-nav .nav-item {
+  position: relative;
+}
+
+.navbar-nav .nav-link {
+  color: #333; 
+  text-decoration: none; 
+  padding: 10px 15px; 
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-item:hover .nav-link {
+  color: #0056b3; 
+}
+
+.navbar-nav .nav-link:after {
+  content: '';
+  position: absolute; 
+  left: 50%; 
+  bottom: -5px; 
+  height: 2px; 
+  width: 0; 
+  background: #0056b3; 
+  transition: width 0.3s ease, left 0.3s ease; 
+}
+
+.navbar-nav .nav-link:hover:after {
+  width: 100%; 
+  left: 0;
+}
+
+.bg-blur{
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+}
+
 .search-box {
     margin-top: 120px;
     max-width: 60%;
     min-width: 30%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(4px);
     padding: 10px;
     border-radius: 10px;
     display: flex;
@@ -93,3 +127,22 @@ div.shadow>img {
     max-height: fit-content;
     /* کل متن */
 }
+.autocomplete-suggestions {
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: white;
+    z-index: 1000;
+    position: absolute; 
+    width: 100%; 
+    max-height: 300px; 
+    overflow-y: auto; 
+    display: none; /* مخفی به صورت پیش‌فرض */
+  }
+  .autocomplete-suggestion {
+    padding: 10px;
+    cursor: pointer;
+    display: block; 
+  }
+  .autocomplete-suggestion:hover {
+    background-color: #e3e3e3; 
+  }

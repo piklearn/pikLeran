@@ -237,3 +237,65 @@
   </div>
 </section>
 {% endblock main %}
+
+{% block script %} 
+<script type="text/javascript">
+  const autocompleteUrl = "{% url 'courses:course-autocomplete' %}";
+
+  const input = document.querySelector('.searchBox');
+  const suggestionsBox = document.getElementById('suggestions');
+
+  let timeout; // متغیر نگهدارنده تایمر
+
+  input.addEventListener('input', function() {
+    clearTimeout(timeout); // پاک کردن تایمر قبلی
+
+    const value = this.value.trim();
+    suggestionsBox.innerHTML = '';
+
+    if (!value) {
+      suggestionsBox.style.display = 'none'; // پنهان کردن جعبه پیشنهادات
+      return;
+    }
+
+    // تنظیم تایمر برای تاخیر در ارسال درخواست
+    timeout = setTimeout(() => {
+      // درخواست به سرور برای گرفتن پیشنهادات
+      fetch(`${autocompleteUrl}?query=${encodeURIComponent(value)}`) 
+        .then(response => {
+          if (!response.ok) { 
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.results.length > 0) {
+            data.results.forEach(item => {
+              const div = document.createElement('div');
+              div.classList.add('autocomplete-suggestion');
+              div.textContent = item.text; // نمایش متن
+              div.addEventListener('click', function() {
+                input.value = item.text; // پر کردن ورودی با پیشنهاد انتخاب شده
+                suggestionsBox.innerHTML = '';
+                suggestionsBox.style.display = 'none'; // پنهان کردن جعبه پیشنهادات
+              });
+              suggestionsBox.appendChild(div);
+            });
+            suggestionsBox.style.display = 'block'; // نمایش جعبه پیشنهادات
+          } else {
+            suggestionsBox.style.display = 'none'; // پنهان کردن در صورت نداشتن پیشنهاد
+          }
+        })
+        .catch(error => {
+          console.error('خطا در درخواست:', error);
+        });
+    }, 1000); // زمان تاخیر (در میلی ثانیه)
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!suggestionsBox.contains(e.target) && e.target !== input) {
+      suggestionsBox.style.display = 'none';
+    }
+  });
+</script>
+{% endblock script %}

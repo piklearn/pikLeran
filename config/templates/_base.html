@@ -37,22 +37,11 @@
 
       {% endif %}
       <div class="z-1">
-        <nav class="navbar navbar-expand-lg container">
+        <nav class="navbar navbar-expand-lg container-fluid mb-5">
           <div class="container-fluid">
             <a class="navbar-brand" href="/">پیک لرن</a>            
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarColor02"
-              aria-controls="navbarColor02"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor02">
-              <ul class="navbar-nav mb-2 mb-lg-0 mx-auto pe-0">
+            <div class="collapse navbar-collapse">
+              <ul class="navbar-nav mb-lg-0 mx-auto">
                 {% for option in navbar_options %}
                   <li class="nav-item">
                     <a class="nav-link" href="{{option.link}}">{{option.name}}</a>
@@ -116,12 +105,14 @@
         </nav>
 
         {% if carousel_courses %}
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="col-12 search-box">
-            <input type="text" name="searchBox" class="searchBox" placeholder="جستجو کنید..."  />
-            <button class="btn btn-success">بگرد</button>
-          </div>
-        </div>
+        <div class="d-flex justify-content-center align-items-center position-relative">
+  <div class="col-12 search-box bg-blur">
+    <input type="text" name="searchBox" class="searchBox" placeholder="جستجو کنید..." />
+    <button class="btn btn-success">بگرد</button>
+    <div class="autocomplete-suggestions position-absolute top-100 rounded" id="suggestions" style="display: none;"></div>
+  </div>
+</div>
+
 
         {% endif %}
       </div>
